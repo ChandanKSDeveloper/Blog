@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, Link, NavLink } from "react-router-dom";
 // import { AiOutlineShareAlt, AiOutlineSearch  } from 'react-icons/ai'
-import {SearchDialog} from '../index'
+import {SearchDialog, ShareDialogBox} from '../index'
 import { Navbar, Typography, IconButton,Avatar, Collapse } from "@material-tailwind/react";
 
 const Nav = () => {
@@ -118,6 +118,11 @@ const Nav = () => {
                         {/* Search Icon */}
                         <div className="hidden lg:block">
                             <SearchDialog />
+                        </div>
+
+                        {/* Share Icon */}
+                        <div className="hidden lg:block">
+                        <ShareDialogBox />
                         </div>
 
                     </div>

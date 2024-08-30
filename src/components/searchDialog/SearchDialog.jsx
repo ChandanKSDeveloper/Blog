@@ -13,7 +13,7 @@ const SearchDialog = () => {
             {/* Search Icon */}
             <div
                 onClick={handleOpen}>
-                <AiOutlineSearch size={30} color="white" className="cursor-pointer hover:shadow-2xl hover:scale-150 duration-200" />
+                <AiOutlineSearch size={30} className="cursor-pointer hover:shadow-2xl hover:scale-150 duration-200" />
             </div>
 
             {/* Dialog */}
