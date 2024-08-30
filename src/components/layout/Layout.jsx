@@ -1,8 +1,10 @@
 import React from "react";
 
-const Layout = () => {
+const Layout = ({children}) => {
     return (
-        <h1>layout</h1>
+        <div className="content-center min-h-screen">
+            {children}
+        </div>
     )
 }
 

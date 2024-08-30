@@ -33,9 +33,7 @@ const HeroSection = () => {
                 </main>
 
             </div>
-            <Typography>
-                
-            </Typography>
+            
         </section>
     )
 }

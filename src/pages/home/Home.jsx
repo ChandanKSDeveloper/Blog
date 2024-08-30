@@ -1,9 +1,13 @@
 import React from "react";
-import {HeroSection} from '../../components/index'
+import {HeroSection, BlogPostCard,Layout} from '../../components/index'
 
 const Home = () => {
     return(
-        <HeroSection />
+        <Layout>
+            <HeroSection />
+            <BlogPostCard />
+
+        </Layout>
     )
 }
 
