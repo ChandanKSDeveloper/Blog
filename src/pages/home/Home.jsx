@@ -1,8 +1,9 @@
 import React from "react";
+import {HeroSection} from '../../components/index'
 
 const Home = () => {
     return(
-        <h1>Home</h1>
+        <HeroSection />
     )
 }
 

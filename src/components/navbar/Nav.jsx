@@ -151,6 +151,9 @@ const Nav = () => {
                         }
 
                         {/* Mobile Toggle */}
+
+                        {/* add search icon here */}
+                        
                         <div className="lg:hidden">
                         <IconButton
                                 className="ml-auto h-10 w-10 border-2 border-white rounded-lg"
