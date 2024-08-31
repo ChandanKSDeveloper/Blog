@@ -204,7 +204,7 @@ const Nav = () => {
 
                 {/* Mobile View */}
                 <Collapse open={openNav}>
-                    <ul className="flex flex-col text-black w-100 gap-4">
+                    <ul className="flex lg:hidden flex-col text-black w-100 gap-4">
                         {navList.map((item) => item.active ? (
                             <li key={item.name}>
                                 <button
