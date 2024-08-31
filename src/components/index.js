@@ -7,6 +7,8 @@ import Loader from './loader/Loader';
 import Nav from './navbar/Nav';
 import SearchDialog from './searchDialog/SearchDialog';
 import ShareDialogBox from './shareDialogBox/ShareDialogBox';
+import RTE from './RTE/RTE'
+import Select from './extra/Select';
 
 
 export {
@@ -19,4 +21,6 @@ export {
     Nav,
     SearchDialog,
     ShareDialogBox,
+    RTE,
+    Select,
 }

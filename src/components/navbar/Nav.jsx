@@ -62,7 +62,7 @@ const Nav = () => {
         },
         {
             name: "Admin Login",
-            slug: "/login",
+            slug: "/adminlogin",
             active: !authStatus,
         },
 

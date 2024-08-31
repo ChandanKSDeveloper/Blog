@@ -8,7 +8,7 @@ import { ThemeProvider } from '@material-tailwind/react'
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import { Home, AdminLogin , Dashboard, AllBlogs, Blog, BlogInfo,} from './pages/index';
+import { Home, AdminLogin , Dashboard, AllBlogs, Blog, BlogInfo, CreateBlog,} from './pages/index';
 
 const router = createBrowserRouter([
   {
@@ -39,6 +39,10 @@ const router = createBrowserRouter([
         path : '/dashboard',
         element : <Dashboard  />
       },
+      {
+        path : '/createblog',
+        element : <CreateBlog  />
+      }
     ]
   }
 ])

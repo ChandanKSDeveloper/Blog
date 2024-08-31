@@ -3,6 +3,7 @@ import { Typography, Button, Input, Card, CardBody, CardHeader } from "@material
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
+import { Layout } from "../../../components";
 
 
 const AdminLogin = () => {
@@ -28,6 +29,9 @@ const AdminLogin = () => {
 
 
     return(
+        <Layout>
+
+        
         <div className="flex items-center justify-center w-full">
 
             {/* Card */}
@@ -93,6 +97,7 @@ const AdminLogin = () => {
              
 
         </div>
+        </Layout>
     )
 }
 
