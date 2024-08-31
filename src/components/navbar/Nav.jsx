@@ -57,7 +57,7 @@ const Nav = () => {
         {
             name: "Blogs",
             slug: "/allblogs",
-            active: !authStatus, 
+            active: authStatus, 
             //make the authStatus here true by removing "!" 
         },
         {
@@ -131,7 +131,7 @@ const Nav = () => {
                         {/* Admin Profile Pic */}
                         {
                             // make the authStatus here true by removing "!". since we want that we user admin login, it show dashboard icon 
-                            !authStatus && (
+                            authStatus && (
                                 <div>
                                     <Link to={'/dashboard'}>
                                         

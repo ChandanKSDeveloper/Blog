@@ -6,33 +6,34 @@ import { useDispatch } from "react-redux";
 import { Layout } from "../../../components";
 import {login as authLogin} from '../../../store/authSlice'
 import authService from '../../../appwrite/auth'
-import { useForm } from "react-hook-form";
 
 
 const AdminLogin = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
+    
 
-    const {register, handleSubmit, formState:{errors}} = useForm();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
-    const login = async(data) => {
+    const login = async({email,password}) => {
+        // e.preventDefault();
+        if(!email || !password){
+            return toast.error("Fill all required fields");
+        }
+
         try {
-            const session = await authService.login(data);
-            console.log("1 phase");
-            
+            const session = await authService.login({email,password});
             if(session){
                 toast.success("Login Successfully")
-                // alert("success")
                 const userData = await authService.getCurrentUser()
-                console.log("2 phase");
                 if(userData){
                     dispatch(authLogin(userData))
-                    console.log("3 phase");
                     navigate('/')
                 }
             }
         } catch (error) {
-            toast.error("Login Failed. Please check your credentials and try again.");
+            toast.error("Login Failed")
             console.log("error :- ", error)
             
         }
@@ -72,7 +73,7 @@ const AdminLogin = () => {
 
                 {/* Card Body */}
                 <CardBody>
-                    <form className="flex flex-col gap-4" onSubmit={handleSubmit(login)}>
+                    <form className="flex flex-col gap-4">
                         {/* First Input */}
                         <div>
 
@@ -80,44 +81,25 @@ const AdminLogin = () => {
                                 type="email"
                                 label="Email"
                                 name="email"
+                                value={email}
                                 color="black"
-                                {...register("email", {
-                                    required: true,
-                                    validate: {
-                                        matchPatern: (value) => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value) ||
-                                       "Email address must be a valid address",
-                                    }
-                                })}
+                                onChange={(e) => setEmail(e.target.value.trim())}
                             />
-                            {errors.email && (
-                                <Typography variant="small" color="red">
-                                    {errors.email.message}
-                                </Typography>
-                            )}
                         </div>
 
                         <div>
                         <Input
                             type="password"
                             label="Password"
-                            // value={password}
+                            value={password}
                             color="black"
-                            {...register("password", {
-                                required: true,
-                            })}                    
+                            onChange={(e) => setPassword(e.target.value)}
                             />
-                            {errors.password && (
-                                <Typography variant="small" color="red">
-                                    {errors.password.message}
-                                </Typography>
-                            )}
                         </div>
 
                         {/* Login Button */}
                         <Button
-                            type="submit"
-                            // onClick={() => login({email,password})}
-                            >
+                            onClick={() => login({email,password})}>
                             Login
                         </Button>
 

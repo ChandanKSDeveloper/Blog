@@ -22,5 +22,7 @@ const authSlice = createSlice({
     }
 })
 
-export const {login, logout} = authSlice.reducer;
+// Most common mistake take I have been making is that, I always use "authSlice.reducer" instead of using "authSlice.actions"
+// Export Actions Correctly: The login and logout actions should be exported from authSlice.actions, not authSlice.reducer. This is a common practice in Redux Toolkit to use the generated action creators in your components.
+export const {login, logout} = authSlice.actions;
 export default authSlice.reducer; 
