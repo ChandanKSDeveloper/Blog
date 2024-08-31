@@ -9,7 +9,7 @@ import SearchDialog from './searchDialog/SearchDialog';
 import ShareDialogBox from './shareDialogBox/ShareDialogBox';
 import RTE from './RTE/RTE'
 import Select from './extra/Select';
-
+import Protected from './ProtectedRoute/Protected'
 
 export {
     BlogPostCard,
@@ -23,4 +23,5 @@ export {
     ShareDialogBox,
     RTE,
     Select,
+    Protected,
 }

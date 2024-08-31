@@ -11,6 +11,7 @@ import { ThemeProvider } from '@material-tailwind/react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import { Home, AdminLogin , Dashboard, AllBlogs, Blog, BlogInfo, CreateBlog,} from './pages/index';
+import {Protected} from './components/index.js'
 
 const router = createBrowserRouter([
   {
@@ -27,9 +28,14 @@ const router = createBrowserRouter([
       },
       {
         path : '/allblogs',
-        element : <AllBlogs />
+        // element : <AllBlogs />
+        element : (<Protected authentication={false}>
+                      <AllBlogs />
+                    </Protected> 
+                  )
       },
       {
+        // use slug
         path : '/bloginfo/:id',
         element : <BlogInfo  />
       },
@@ -39,11 +45,18 @@ const router = createBrowserRouter([
       },
       {
         path : '/dashboard',
-        element : <Dashboard  />
+        element : (
+          <Protected authentication={true}>
+            <Dashboard />
+          </Protected>
+        )
       },
       {
         path : '/createblog',
-        element : <CreateBlog  />
+        element :  (
+          <Protected authentication={true}>
+            <CreateBlog />
+          </Protected>)
       }
     ]
   }

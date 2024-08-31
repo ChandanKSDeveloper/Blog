@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Typography, Button, Input, Card, CardBody, CardHeader } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
@@ -15,27 +15,83 @@ const AdminLogin = () => {
 
     const {register, handleSubmit, formState:{errors}} = useForm();
 
+    useEffect(() => {
+        const checkSession = async() => {
+            try{
+                const user = await authService.getCurrentUser();
+                if(user){
+                    dispatch(authLogin(user));
+                    navigate('/')
+                }
+            } catch(error) {
+                // No active session or error fetching user
+            }
+        };
+        checkSession();
+    },[dispatch, navigate])
+
     const login = async(data) => {
+
         try {
             const session = await authService.login(data);
-            console.log("1 phase");
-            
-            if(session){
-                toast.success("Login Successfully")
-                // alert("success")
-                const userData = await authService.getCurrentUser()
-                console.log("2 phase");
-                if(userData){
-                    dispatch(authLogin(userData))
-                    console.log("3 phase");
-                    navigate('/')
+            if (session) {
+                toast.success("Login Successfully");
+                const userData = await authService.getCurrentUser();
+                if (userData) {
+                    dispatch(authLogin(userData));
+                    navigate('/');
                 }
             }
         } catch (error) {
             toast.error("Login Failed. Please check your credentials and try again.");
-            console.log("error :- ", error)
-            
+            console.log("error :- ", error);
         }
+        
+        // try {
+
+        //     // Check if user is already logged in
+        //     const userData = await authService.getCurrentUser();
+        //     if(userData){
+        //         dispatch(authLogin(userData))
+        //         console.log("3 phase");
+        //         navigate('/')
+        //         return;
+        //     }
+
+        //     // Proceed with login if no session exists
+        //     const session = await authService.login(data);
+        //     console.log("1 phase");
+            
+        //     if(session){
+        //         toast.success("Login Successfully")
+        //         // alert("success")
+        //         const newUserData = await authService.getCurrentUser()
+        //         console.log("2 phase");
+        //         if(newUserData){
+        //             dispatch(authLogin(newUserData))
+        //             console.log("3 phase");
+        //             navigate('/')
+        //         } else {
+        //             toast.error("Sorry but only Admin can use this.");
+        //         }
+        //     }
+        // } catch (error) {
+        //     if(error.message.includes("Creation of a session is prohibited")){
+        //         toast.loading("Session is already active. Fetching user data...")
+        //         const userData = await authService.getCurrentUser();
+        //         if(userData){
+        //             dispatch(authLogin(userData));
+        //             navigate('/');
+        //         } else {
+        //             toast.error("Failed to fetch user data.");
+        //         }
+        //     } else {
+        //         toast.error("Login Failed. Please check your credentials and try again.");
+
+        //     }
+        //     console.log("error :- ", error)
+            
+        // }
     }
 
 
