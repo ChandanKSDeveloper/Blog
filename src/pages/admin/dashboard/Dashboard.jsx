@@ -4,12 +4,26 @@ import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { IoPersonCircle } from "react-icons/io5";
 import { Layout } from "../../../components";
+import authService from '../../../appwrite/auth'
+import { useDispatch } from "react-redux";
+import {logout as logoutAction } from '../../../store/authSlice'
+
 
 const Dashboard = () => {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     // Logout function
-    const Logout = () => {
+    const logoutHandler = async() => {
+        try {
+            await authService.logout();
+            toast.success("Logout successfully")
+            dispatch(logoutAction())
+            navigate('/')
+            
+        } catch (error) {
+            toast.error("Logout failed. Please try again.");
+        }
 
     }
 
@@ -52,7 +66,7 @@ const Dashboard = () => {
 
                         <div className="mb-2">
                         <Button
-                            onClick={Logout}
+                            onClick={logoutHandler}
                             className="px-8 py-2">
                             Logout
                         </Button>
