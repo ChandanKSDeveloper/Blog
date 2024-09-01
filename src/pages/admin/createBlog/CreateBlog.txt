@@ -1,4 +1,4 @@
-import React,{ useCallback } from "react";
+import React,{useState, useCallback} from "react";
 import { RTE, Select} from '../../../components/index'
 import { useNavigate, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -6,63 +6,29 @@ import { Input, Button, Typography} from "@material-tailwind/react";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
-import appwriteService from '../../../appwrite/config'
 
 // creating blog and updating existing blog
 const CreateBlog = ({post}) => {
     // Store this api key in .env file 
-    const {register, handleSubmit, watch, setValue, control, getValues} = useForm({
-        defaultValues:{
-            title: post?.title || "",
-            slug: post?.$id || "",
-            content: post?.content || "",
-            status: post?.status || "active",
-        },
-    });
-
+    const {register, handleSubmit, watch, setValue, control, getValues} = useForm()
 
     const navigate = useNavigate();
     const userData = useSelector((state) => state.auth.userData);
 
     const submit = async (data) => {
 
-        if(!userData){
-            toast.error("User is not logged in.");
-            navigate('/adminlogin'); // Or any other appropriate route
-            return;
-        }
-        // Editing a existing post
-        if(post){
-            const file = data.image[0] ? await appwriteService.uploadFile(data.image[0]) : null;
+        // const file = await appwriteService.uploadFile(data.image[0]);
 
-            if(file){
-                appwriteService.deleteFile(post.featuredImage);
-            }
+        // if (file) {
+        //     const fileId = file.$id;
+        //     data.featuredImage = fileId;
+        //     const dbPost = await appwriteService.createPost({ ...data, userId: userData.$id });
 
-            const dbPost = await appwriteService.updatePost(post.$id,{
-                ...data,
-                //handle error and undefined case properly
-                featuredImage : file ? file.$id : undefined
-            });
-
-            if(dbPost){
-                toast.success("Post Edited Successfully");
-                navigate(`/bloginfo/${dbPost.$id}`)
-            }
-        } else {
-            const file = await appwriteService.uploadFile(data.image[0]);
-
-            if(file){
-                const fileId = file.$id;
-                data.featuredImage = fileId;
-                const dbPost = await appwriteService.createPost({...data, userId:userData.$id});
-
-                if(dbPost){
-                    toast.success("Post Submitted Successfully");
-                    navigate(`/bloginfo/${dbPost.$id}`)
-                }
-            }
-        }
+        //     if (dbPost) {
+        //         navigate(`/blog/${dbPost.$id}`);
+        //     }
+        // }
+        
     };
 
     const slugTransform = useCallback((value) => {
@@ -103,7 +69,7 @@ const CreateBlog = ({post}) => {
                         variant="h4"
                         className="font-bold tracking-wide "    
                     >
-                        {post? `Edit`:`Create`} blog
+                        Create blog
                     </Typography>
 
                 </div> 
@@ -114,11 +80,12 @@ const CreateBlog = ({post}) => {
             <form onSubmit={handleSubmit(submit)} className="flex mt-10 flex-wrap ">
                 <div className="lg:w-2/3 flex-col px-2">
                     <div className="mb-5">
-                        <Input
-                            label="Title :"
-                            placeholder="Title"
-                            {...register("title", { required: true })}
-                        />
+
+                    <Input
+                        label="Title :"
+                        placeholder="Title"
+                        {...register("title", { required: true })}
+                    />
                     </div>
 
                     <div className="mb-5">
@@ -132,9 +99,7 @@ const CreateBlog = ({post}) => {
                             }}
                         />
                     </div>
-                    <RTE label="" name="content" control={control} defaultValue={getValues("content")} 
-                        //Warning: Function components cannot be given refs. Attempts to access this ref will fail. Did you mean to use React.forwardRef()?
-                    />
+                    <RTE label="" name="content" control={control} defaultValue={getValues("content")} />
                 </div>
                 <div className="w-1/3 px-2">
                     <Input
@@ -142,18 +107,8 @@ const CreateBlog = ({post}) => {
                         type="file"
                         className="mb-4"
                         accept="image/png, image/jpg, image/jpeg, image/gif"
-                        {...register("image", { required: !post })}
+                        {...register("image", { required: true })}
                     />
-
-                    {post && (
-                        <div className="w-full mb-4">
-                            <img
-                                src={appwriteService.getFilePreview(post.featuredImage)}
-                                alt={post.title}
-                                className="rounded-lg"
-                            />
-                        </div>
-                    )}
                 
                 
                     <Select
@@ -163,7 +118,7 @@ const CreateBlog = ({post}) => {
                         {...register("status", { required: true })}
                     />
                     <Button type="submit">
-                        {post ? "Update" : "Submit"}
+                        Post
                     </Button>
                 </div>
             </form>
