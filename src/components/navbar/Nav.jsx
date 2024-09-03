@@ -1,52 +1,15 @@
 import React,{ useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate, Link, NavLink } from "react-router-dom";
-// import { AiOutlineShareAlt, AiOutlineSearch  } from 'react-icons/ai'
+import { useNavigate, Link } from "react-router-dom";
 import {SearchDialog, ShareDialogBox} from '../index'
-import { Navbar, Typography, IconButton,Avatar, Collapse } from "@material-tailwind/react";
+import { Navbar, Typography, IconButton,Avatar, Collapse, Button } from "@material-tailwind/react";
+import logo from '../../svg/logo.svg';
 
 const Nav = () => {
     const authStatus = useSelector((state) => state.auth.status);
     const navigate = useNavigate();
 
     const [openNav, setOpenNav] = useState(false);
-
-    // NavList
-    // const navList = (
-    //     <ul className="list-none mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
-    //         <Typography
-    //             as="li"
-    //             variant="small"
-    //             color="blue-gray"
-    //             className="p-1 font-normal"
-    //             is
-    //             >
-    //                 <Link to={'/'} className="flex items-center" >
-    //                     Home
-    //                 </Link>
-    //         </Typography>
-
-    //         <Typography
-    //             as="li"
-    //             variant="small"
-    //             color="blue-gray"
-    //             className="p-1 font-normal ">
-    //                 <NavLink to={'/allblogs'} className={({ isActive }) => (isActive ? "flex items-center text-blue-500" : "hidden")}>
-    //                     Blogs
-    //                 </NavLink>
-    //         </Typography>
-
-    //         <Typography
-    //             as="li"
-    //             variant="small"
-    //             color="blue-gray"
-    //             className="p-1 font-normal ">
-    //                 <Link to={'/adminlogin'} className={({ isActive }) => (isActive ? "flex items-center text-blue-500" : "hidden")}>
-    //                     Admin Login
-    //                 </Link>
-    //         </Typography>
-    //     </ul>
-    // )
 
     const navList = [
         {
@@ -58,7 +21,6 @@ const Nav = () => {
             name: "Blogs",
             slug: "/allblogs",
             active: authStatus, 
-            //make the authStatus here true by removing "!" 
         },
         {
             name: "Admin Login",
@@ -71,29 +33,32 @@ const Nav = () => {
         <div>
             {/* Navbar */}
             <Navbar
-                className="sticky inset-0 z-20 h-max max-w-full bg-[#9ca1ff] border-none rounded-none py-2 px-4 lg:px-8 lg:py-2"
+                variant="gradient"
+                color="blue-gray"
+                className="h-max rounded-none max-w-full from-blue-gray-900 to-blue-gray-800 duration-1000 py-2 px-4 lg:px-12 lg:py-2"
+                //  className="mx-auto max-w-screen-xl from-blue-gray-900 to-blue-gray-800 px-4 py-3"
                 >
 
                 {/* Desktop View */}
-                <div className="flex items-center justify-between text-blue-gray-900">
+                <div className="flex items-center mx-auto justify-between text-blue-gray-900">
 
                     {/* Home Page Link */}
 
                     <Link to={'/'}>
                     <Typography
                             as="span"
-                            className="mr-4 cursor-pointer py-1.5 text-xl font-bold flex gap-2 items-center"
+                            className="mx-4 cursor-pointer py-1.5 text-xl font-bold flex gap-2 items-center"
                            
                         >
                             {/* Logo Image  */}
                             <img
-                                className=' w-10 h-10 '
-                                src='https://cdn-icons-png.flaticon.com/128/3685/3685253.png'
+                                className=' w-10 h-10  '
+                                src={logo}
                             />
                             {/* Logo Text  */}
-                            <span>
+                            {/* <span> 
                                 Tech Blog
-                            </span>
+                            </span> */}
                         </Typography>
                     </Link>
 
@@ -102,24 +67,26 @@ const Nav = () => {
                         <ul className="lg:flex gap-4 hidden">
                             {navList.map((item) => item.active ? (
                                 <li key={item.name}>
-                                    <button
+                                    <Button
+                                        variant="gradient"
                                         onClick={(e) => {
                                             e.preventDefault();
                                             navigate(item.slug)
                                             }}
 
-                                        className="inline-bock px-6 py-2 duration-200 hover:bg-blue-100 rounded-full"    
+                                        // className="inline-bock px-6 py-2 duration-200 hover:bg-blue-100 rounded-full"    
+                                        className="rounded-full "    
                                         >
                                         {item.name}
 
-                                    </button>
+                                    </Button>
 
                                 </li>
                             ) : null )}
                         </ul>
 
                         {/* Search Icon */}
-                        <div className="hidden lg:block">
+                        <div className="">
                             <SearchDialog />
                         </div>
 
@@ -203,8 +170,10 @@ const Nav = () => {
 
 
                 {/* Mobile View */}
+
+                 
                 <Collapse open={openNav}>
-                    <ul className="flex lg:hidden flex-col text-black w-100 gap-4">
+                    <ul className="flex duration-200 lg:hidden flex-col text-black w-100 py-4 items-center gap-4">
                         {navList.map((item) => item.active ? (
                             <li key={item.name}>
                                 <button
@@ -213,7 +182,7 @@ const Nav = () => {
                                         setOpenNav(false); // Close nav on item click
                                         navigate(item.slug);
                                     }}
-                                    className="inline-block px-6 py-2 duration-200 hover:bg-blue-100 rounded-full"
+                                    className="flex text-white hover:border transition-all duration-100 focus:border-[#646cff] px-6 py-2 rounded-full"
                                 >
                                     {item.name}
                                 </button>

@@ -1,8 +1,13 @@
 import React from "react";
+import logo from '../../svg/logo.svg'
+
 
 const Footer = () => {
     return (
-        <footer className="body-font">
+        <footer
+            className="h-max rounded-none max-w-full  bg-gradient-to-r from-blue-gray-900 to-blue-gray-800 duration-1000 py-2 px-4 lg:px-12 lg:py-2" 
+            // className="body-font"
+            >
 
         {/* Left Content */}
         <div className="container px-5 py-3 mx-auto flex items-center sm:flex-row flex-col">
@@ -13,7 +18,7 @@ const Footer = () => {
 
                 {/* Logo */}
 
-                <img src="https://cdn-icons-png.flaticon.com/128/3685/3685253.png" alt="logo" className="w-10"/>
+                <img src={logo} alt="logo" className="w-10"/>
 
                 {/* Logo text */}
                 <span className="ml-3 text-xl text-white">Tech Libre</span>
@@ -34,7 +39,7 @@ const Footer = () => {
             {/* Right Item */}
             <span className="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start">
                 {/* Icon 1 */}
-                <a href="/" className="text-gray-500">
+                <a href="/" className="text-gray-500 cursor-pointer hover:shadow-2xl hover:scale-150 duration-200">
                     <svg
                         fill="currentColor"
                         strokeLinecap="round"
@@ -48,7 +53,7 @@ const Footer = () => {
                 </a>
 
                 {/* Icon 2 */}
-                <a className="ml-3 text-gray-500">
+                <a className="ml-3 text-gray-500 cursor-pointer hover:shadow-2xl hover:scale-150 duration-200">
                     <svg
                         fill="currentColor"
                         strokeLinecap="round"
@@ -62,7 +67,7 @@ const Footer = () => {
                 </a>
 
                  {/* Icon 3  */}
-                 <a className="ml-3 text-gray-500">
+                 <a className="ml-3 text-gray-500 cursor-pointer hover:shadow-2xl hover:scale-150 duration-200">
                     <svg
                         fill="none"
                         stroke="currentColor"
@@ -77,7 +82,7 @@ const Footer = () => {
                     </svg>
                 </a>
                 {/* Icon 4  */}
-                <a className="ml-3 text-gray-500">
+                <a className="ml-3 text-gray-500 cursor-pointer hover:shadow-2xl hover:scale-150 duration-200">
                     <svg
                         fill="currentColor"
                         stroke="currentColor"

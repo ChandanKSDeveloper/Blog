@@ -12,7 +12,7 @@ const ShareDialogBox = () => {
     return (
         <Fragment>
             <div className="ml-auto">
-                <AiOutlineShareAlt size={30} onClick={handleOpen} className="cursor-pointer hover:shadow-2xl hover:scale-150 duration-200"/>
+                <AiOutlineShareAlt size={30} onClick={handleOpen} className="cursor-pointer hover:shadow-2xl hover:scale-150 duration-200" color="white"/>
             </div>
 
             {/* Dialog */}
