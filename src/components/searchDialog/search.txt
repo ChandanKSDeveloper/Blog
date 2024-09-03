@@ -1,46 +1,24 @@
-import React, { Fragment, useState,useEffect } from "react";
+import React, { Fragment, useState } from "react";
 import {Dialog,DialogBody,Input} from '@material-tailwind/react'
 import { AiOutlineSearch } from "react-icons/ai";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { fetchPosts } from '../../store/allblogsSlice'
-import appwriteService from '../../appwrite/config'
 const SearchDialog = () => {
-
-    const dispatch = useDispatch();
-
-
     const[open, setOpen] = useState(false);
     const [searchTerm, setSearchterm] = useState("");
 
     const posts = useSelector((state) => state.allblogs.posts);
-    const status = useSelector((state) => state.allblogs.status);
-
+    
     const handleOpen = () => {
         setOpen(!open);
-        setSearchterm("");
     };
-
-    useEffect(() => {
-        if(status === 'idle'){
-            dispatch(fetchPosts());
-        }
-    },[dispatch,status])
-
-    useEffect(() => {
-        fetchPosts();
-    },[fetchPosts])
-
 
 
     // filter posts based on search term
 
-    const filteredPosts = searchTerm ? posts.filter((post) => 
+    const filteredPosts = posts?.filter((post) => 
         post.title.toLowerCase().includes(searchTerm.toLowerCase())
-    ):[];
-
-    
-    console.log("posts from store",posts);
-    // console.log(filteredPosts);
+    )
 
     return (
         <Fragment>
@@ -57,7 +35,7 @@ const SearchDialog = () => {
 
                     <div className="flex w-full justify-center">
                         <Input
-                            color="black"
+                            color="white"
                             type="search"
                             label="Search"
                             className="bg-[#2C3A47]"
@@ -73,13 +51,12 @@ const SearchDialog = () => {
                     {/* Blog Card */}
                     <div className="flex justify-center flex-wrap sm:mx-auto sm:mb-2 -mx-2 mt-4 mb-2">
                         {
-                            
                             filteredPosts.map((post) => (
                                 <div className="p-2 sm:w-1/4 w-full" key={post.$id}>
                                     <div className="container mx-auto px-4 bg-gray-200 p-2 rounded-lg">
 
                                         {/* Blog Thumbnail */}
-                                        <img src={appwriteService.getFilePreview(post.thumbnail)} alt={post.title} className="w-20 mb-2 rounded-lg" />
+                                        <img src={post.thumbnail} alt={post.title} className="w-20 mb-2 rounded-lg" />
 
                                         {/* Blog Date */}
 

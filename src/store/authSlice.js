@@ -11,7 +11,17 @@ const authSlice = createSlice({
     reducers : {
         login : (state, action) => {
             state.status = true;
-            state.userData = action.payload.userData;
+            /* I create the major blunder here, I was using
+
+                    state.userData = action.payload.userData;  -> Just like Github repo of Hitesh sir
+
+                but it should 
+            
+                    state.userData = action.payload; 
+
+                if i Try to use the first one I will get undefined or null when printing the store userData
+            */
+            state.userData = action.payload;
         },
 
         logout : (state) => {

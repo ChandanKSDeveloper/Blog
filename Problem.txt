@@ -1,0 +1,17 @@
+Major problem 1 -> start on :-31 aug 2024 -> solved on -> 1 sep 2024
+
+    main problem is that userData in store / authSlice is not getting updated after adminLogin.
+    so , the main problem reside somewhere in adminLogin.jsx
+    since, I am not able to see userData in anywhere in other component like home , dashboard etc
+
+    Solution ->  I was using state.userData = action.payload.userData;  -> Just like Github repo of Hitesh sir
+                but it should state.userData = action.payload; 
+                if i Try to use the first one I will get undefined or null when printing the store userData
+
+
+Minor problem 2 -> start on :- 02 sept 2024 -> solved on -> 02 sept 2024 around 9:20pm
+
+    problem occur when I was trying to edit a post. instead of editing , it just create a new post .
+
+    Solution -> I was using -> const post = posts.find((post) => post.slug === slug) -> which will give me undefined
+                but it should be -> const post = posts.find((post) => post.$id === slug)

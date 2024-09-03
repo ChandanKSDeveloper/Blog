@@ -69,8 +69,6 @@ const CreateBlog = ({post}) => {
 
         }
         // Editing a existing post
-
-        // handling file/ image upload
         if(post){
             const file = data.image[0] ? await appwriteService.uploadFile(data.image[0]) : null;
 
@@ -86,9 +84,6 @@ const CreateBlog = ({post}) => {
             // }
 
             //replace old post.$id with new post.$id -> deleting this document and creating a new document
-            //instead I just disable to set new title , while give option to edit content and status and image upload
-
-            // Prepare the new data with updated slug
 
             const dbPost = await appwriteService.updatePost(post.$id,{
                 ...data,
@@ -176,8 +171,6 @@ const CreateBlog = ({post}) => {
                             label="Title :"
                             placeholder="Title"
                             {...register("title", { required: true })}
-                            disabled = {!!post} 
-                            /* Disable if post exists */
                         />
                     </div>
 

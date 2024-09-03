@@ -3,61 +3,37 @@ import { Button } from "@material-tailwind/react";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { IoPersonCircle } from "react-icons/io5";
-import { BlogPostCard } from "../../../components";
+import { Layout } from "../../../components";
 import appwriteService from '../../../appwrite/config'
-
-
-import authService from '../../../appwrite/auth';
 import { useDispatch,useSelector } from "react-redux";
-import {logout as logoutAction } from '../../../store/authSlice';
-import {fetchPosts, deletePost} from '../../../store/allblogsSlice'
+import {logout as logoutAction } from '../../../store/authSlice'
 
 
 const Dashboard = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-
-    const posts = useSelector((state) => state.allblogs.posts);
-    const status = useSelector((state) => state.allblogs.status);
-
     const userData = useSelector((state) => state.auth.userData)
 
-    // const [posts,setPosts] = useState([]);
+    const [posts,setPosts] = useState([]);
 
     // fetch all posts
-    // const fetchPosts = useCallback(async () => {
-    //     const response = await appwriteService.getPosts([]);
-    //     if(response){
-    //         setPosts(response.documents);
-    //     }
-    // },[])
-
-    useEffect(() => {
-        if(status === 'idle'){
-            dispatch(fetchPosts());
+    const fetchPosts = useCallback(async () => {
+        const response = await appwriteService.getPosts([]);
+        if(response){
+            setPosts(response.documents);
         }
-    },[dispatch,status])
+    },[])
 
-    // const deletePost = async(postId) => {
-    //     try {
-    //         await appwriteService.deletePost(postId);
-    //         toast.success("Post deleted Successfully")
-    //         fetchPosts(); // Refresh posts after deletion
-    //     } catch (error) {
-    //         console.log("Error deleting post:", error);
-    //         toast.error("Failed to delete post");
-            
-    //     }
-    // }
-
-    const deletePostHandler = (postId) => {
-        dispatch(deletePost(postId));
-        appwriteService.deletePost(postId).then(() => {
-            toast.success("Post deleted successfully");
-        }).catch((error) => {
+    const deletePost = async(postId) => {
+        try {
+            await appwriteService.deletePost(postId);
+            toast.success("Post deleted Successfully")
+            fetchPosts(); // Refresh posts after deletion
+        } catch (error) {
             console.log("Error deleting post:", error);
             toast.error("Failed to delete post");
-        })
+            
+        }
     }
 
     useEffect(() => {
@@ -204,18 +180,11 @@ const Dashboard = () => {
                                                 {post.createdOn}
                                             </td>
 
-                                            {/* Delete and Edit Blog */}
-                                            <td className="px-6 py-4 flex mr-2 ">
-                                                <Link to={`/editpost/${post.$id}`}>
-                                                    <button className="px-4 py-1 mr-2 rounded-lg text-white font-bold bg-green-500">
-                                                        Edit
-                                                    </button>
-                                                </Link>
-
-                                                <button className="px-4 py-1  rounded-lg text-white font-bold bg-red-500" onClick={() => deletePostHandler(post.$id)}>
+                                            {/* Delete Blog */}
+                                            <td className="px-6 py-4">
+                                                <button className="px-4 py-1 rounded-lg text-white font-bold bg-red-500" onClick={() => deletePost(post.$id)}>
                                                     Delete
                                                 </button>
-
                                             </td>
 
                                         </tr>

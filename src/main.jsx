@@ -10,7 +10,7 @@ import { ThemeProvider } from '@material-tailwind/react'
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import { Home, AdminLogin , Dashboard, AllBlogs, Blog, BlogInfo, CreateBlog,} from './pages/index';
+import { Home, AdminLogin , Dashboard, AllBlogs, Blog, BlogInfo, CreateBlog, EditPost} from './pages/index';
 import {Protected} from './components/index.js'
 
 const router = createBrowserRouter([
@@ -29,7 +29,8 @@ const router = createBrowserRouter([
       {
         path : '/allblogs',
         // element : <AllBlogs />
-        element : (<Protected authentication={false}>
+        // authentication={false} 
+        element : (<Protected authentication={true}>
                       <AllBlogs />
                     </Protected> 
                   )
@@ -57,6 +58,13 @@ const router = createBrowserRouter([
         element :  (
           <Protected authentication={true}>
             <CreateBlog />
+          </Protected>)
+      },
+      {
+        path : '/editpost/:slug',
+        element :  (
+          <Protected authentication={true}>
+            <EditPost />
           </Protected>)
       }
     ]

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Typography, Button, Input, Card, CardBody, CardHeader } from "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Layout } from "../../../components";
 import {login as authLogin} from '../../../store/authSlice'
 import authService from '../../../appwrite/auth'
@@ -12,6 +12,13 @@ import { useForm } from "react-hook-form";
 const AdminLogin = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
+
+
+    const isLoggedIn = useSelector((state) => state.auth.status);
+    const userData = useSelector((state) => state.auth.userData);
+    console.log(isLoggedIn);
+    console.log(userData);
+    
 
     const {register, handleSubmit, formState:{errors}} = useForm();
 
@@ -38,9 +45,16 @@ const AdminLogin = () => {
                 toast.success("Login Successfully");
                 const userData = await authService.getCurrentUser();
                 if (userData) {
-                    dispatch(authLogin(userData));
-                    navigate('/');
+                    dispatch(authLogin({userData}));
+                    // navigate('/');
                 }
+
+                console.log(userData);
+                
+
+                // -------
+                navigate('/');
+                // -------
             }
         } catch (error) {
             toast.error("Login Failed. Please check your credentials and try again.");
