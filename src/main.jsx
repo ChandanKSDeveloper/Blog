@@ -72,8 +72,11 @@ const router = createBrowserRouter([
 ])
 
 //store and redux
+import store, { persistor } from './store/store.js';
+import { PersistGate } from 'redux-persist/integration/react';
+
 import { Provider } from 'react-redux';
-import store from './store/store.js';
+// import store from './store/store.js';
 
 
 
@@ -83,8 +86,10 @@ createRoot(document.getElementById('root')).render(
       <ThemeProvider>
       <Toaster position="top-center" reverseOrder={false} />
         <Provider store={store}>
-            <RouterProvider router={router}/>
-        </Provider> 
+          <PersistGate loading={null} persistor={persistor}>
+              <RouterProvider router={router}/>
+              </PersistGate>
+          </Provider> 
       </ThemeProvider>
   </StrictMode>,
 )

@@ -1,15 +1,18 @@
 import React,{ useCallback, useEffect } from "react";
 import { RTE, Select} from '../../../components/index'
 import { useNavigate, Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Input, Button, Typography} from "@material-tailwind/react";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import appwriteService from '../../../appwrite/config'
 
+import { fetchPosts } from "../../../store/allblogsSlice";
 // creating blog and updating existing blog
 const CreateBlog = ({post}) => {
+
+    const dispatch = useDispatch();
 
     console.log(post)
     // Store this api key in .env file 
@@ -118,6 +121,8 @@ const CreateBlog = ({post}) => {
                 }
             }
         }
+           // After successfully creating or editing a post, fetch the updated posts
+           dispatch(fetchPosts());
 
         
     };

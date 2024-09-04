@@ -20,7 +20,7 @@ const Nav = () => {
         {
             name: "Blogs",
             slug: "/allblogs",
-            active: authStatus, 
+            active: true, 
         },
         {
             name: "Admin Login",

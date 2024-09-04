@@ -3,7 +3,7 @@ import authService from '../../appwrite/auth'
 import { HeroSection, BlogPostCard, Layout, BlogPostSkeleton } from '../../components/index'
 import { useSelector,useDispatch } from "react-redux";
 import toast from "react-hot-toast";
-
+import {login as authLogin} from '../../store/authSlice'
 import {fetchPosts} from '../../store/allblogsSlice';
 import { Button } from "@material-tailwind/react";
 
