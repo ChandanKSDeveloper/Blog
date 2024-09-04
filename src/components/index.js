@@ -10,6 +10,7 @@ import ShareDialogBox from './shareDialogBox/ShareDialogBox';
 import RTE from './RTE/RTE'
 import Select from './extra/Select';
 import Protected from './ProtectedRoute/Protected'
+import BlogPostSkeleton from './blogPostSkeleton/BlogPostSkeleton';
 
 export {
     BlogPostCard,
@@ -24,4 +25,6 @@ export {
     RTE,
     Select,
     Protected,
+    BlogPostSkeleton,
+
 }

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 const BlogPostCard = ({$id, title, thumbnail, createdOn}) => {
 
-    const previewUrl = thumbnail ? appwriteService.getFilePreview(thumbnail) : 'https://images.pexels.com/photos/674010/pexels-photo-674010.jpeg';
+    const previewUrl = thumbnail ? appwriteService.getFilePreview(thumbnail) : 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/800px-No_image_available.svg.png';
 
     return (
         <Link to={`/bloginfo/${$id}`}>

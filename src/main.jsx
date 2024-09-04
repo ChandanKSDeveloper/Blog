@@ -28,12 +28,12 @@ const router = createBrowserRouter([
       },
       {
         path : '/allblogs',
-        // element : <AllBlogs />
+        element : <AllBlogs />
         // authentication={false} 
-        element : (<Protected authentication={true}>
-                      <AllBlogs />
-                    </Protected> 
-                  )
+        // element : (<Protected authentication={true}>
+        //               <AllBlogs />
+        //             </Protected> 
+        //           )
       },
       {
         // use slug
