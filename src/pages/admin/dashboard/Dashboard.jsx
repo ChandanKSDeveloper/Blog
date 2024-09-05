@@ -22,33 +22,12 @@ const Dashboard = () => {
 
     const userData = useSelector((state) => state.auth.userData)
 
-    // const [posts,setPosts] = useState([]);
-
-    // fetch all posts
-    // const fetchPosts = useCallback(async () => {
-    //     const response = await appwriteService.getPosts([]);
-    //     if(response){
-    //         setPosts(response.documents);
-    //     }
-    // },[])
 
     useEffect(() => {
         if(status === 'idle'){
             dispatch(fetchPosts());
         }
     },[dispatch,status])
-
-    // const deletePost = async(postId) => {
-    //     try {
-    //         await appwriteService.deletePost(postId);
-    //         toast.success("Post deleted Successfully")
-    //         fetchPosts(); // Refresh posts after deletion
-    //     } catch (error) {
-    //         console.log("Error deleting post:", error);
-    //         toast.error("Failed to delete post");
-            
-    //     }
-    // }
 
     const deletePostHandler = (postId) => {
         dispatch(deletePost(postId));
@@ -63,17 +42,6 @@ const Dashboard = () => {
     useEffect(() => {
         fetchPosts();
     },[fetchPosts])
-
-    /*
-    useEffect(() => {
-        appwriteService.getPosts([]).then((post) => {
-            if(post){
-                setPosts(post.documents);
-            }
-        })
-    },[deletePost])
-    //Using deletePost in useEffect Dependency can cauyse unnecessary re-renders
-    */
 
 
     // Logout function

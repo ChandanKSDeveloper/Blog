@@ -28,7 +28,7 @@ const Footer = () => {
             <p
                 className="text-sm text-gray-500 sm:ml-4 sm:pl-4 sm:border-gray-200 sm:py-2 sm:mt-0 mt-4">
                 &copy;2024 TechLibre -
-                <a href="https://www.google.com"
+                <a href="https://www.youtube.com/@Techlibre"
                     className="text-gray-600 ml-1"
                     rel="noopener noreferrer"
                     target="_blank">

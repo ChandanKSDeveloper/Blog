@@ -11,8 +11,8 @@ const Home = () => {
 
     const isLoggedIn = useSelector((state) => state.auth.status);
     const userData = useSelector((state) => state.auth.userData);
-    console.log(isLoggedIn);
-    console.log(userData);
+    // console.log(isLoggedIn);
+    // console.log(userData);
 
     const dispatch = useDispatch();
 
@@ -42,13 +42,13 @@ const Home = () => {
                 const user = await authService.getCurrentUser();
                 if(user){
                     dispatch(authLogin(user));
-                    toast.success("Welcome back")
+                    // toast.success("Welcome back")
                 } else {
-                    console.error("No user session found.");
+                    // console.error("No user session found.");
                 }
             } catch(error) {
                 // No active session or error fetching user
-                console.error("No active session or error fetching user:", error);
+                // console.error("No active session or error fetching user:", error);
             }
         };
         checkSession();

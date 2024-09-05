@@ -39,7 +39,7 @@ const SearchDialog = () => {
     ):[];
 
     
-    console.log("posts from store",posts);
+    // console.log("posts from store",posts);
     // console.log(filteredPosts);
 
     return (

@@ -4,34 +4,82 @@ import { useNavigate, useParams, Link } from "react-router-dom";
 import appwriteService from '../../appwrite/config';
 import { Button } from "@material-tailwind/react";
 import parse from "html-react-parser";
+import {deletePost, fetchPosts} from '../../store/allblogsSlice'
+import DOMPurify from "dompurify";
+import toast from "react-hot-toast";
+import {NotFound, BlogPostSkeleton} from '../../components/index'
 
 const BlogInfo = () => {
     const [post, setPost] = useState(null);
+    const[loading, setLoading] = useState(true);
     const { slug } = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const userData = useSelector((state) => state.auth.userData);
     const isAuthor = post && userData ? post.userId === userData.$id : false;
+
+
     useEffect(() => {
+        const fetchPostBySlug = async () => {
+            try {
+                const fetchedPost = await appwriteService.getPost(slug);
+                if (fetchedPost) {
+                    setPost(fetchedPost);
+                } else {
+                    navigate('/');
+                }
+            } catch (error) {
+                navigate('/');
+            } finally {
+                setLoading(false);  // Set loading to false when done
+            }
+        };
+
         if (slug) {
-            appwriteService.getPost(slug).then((post) => {
-                if(post) setPost(post);
-                else navigate('/');
-            })
+            fetchPostBySlug();
         } else {
             navigate('/');
         }
-    },[slug,navigate]);
+    }, [slug, navigate]);
+
+    
+    // const deletePostHandler = (postId) => {
+    //     dispatch(deletePost(postId));
+    //     appwriteService.deletePost(postId).then(() => {
+    //         toast.success("Post deleted successfully");
+    //         navigate('/'); 
+    //     }).catch((error) => {
+    //         // console.log("Error deleting post:", error);
+    //         toast.error("Failed to delete post");
+    //     })
+    // }
 
     const deletePostHandler = (postId) => {
-        dispatch(deletePost(postId));
-        appwriteService.deletePost(postId).then(() => {
-            toast.success("Post deleted successfully");
-        }).catch((error) => {
-            console.log("Error deleting post:", error);
-            toast.error("Failed to delete post");
-        })
+        appwriteService.deletePost(postId)
+            .then(() => {
+                dispatch(deletePost(postId));
+                toast.success("Post deleted successfully");
+                navigate('/');  // Navigate after deleting
+            })
+            .catch((error) => {
+                // console.log("Error deleting post:", error);
+                toast.error("Failed to delete post");
+            });
+    };
+
+    // const sanitizedContent = post ? DOMPurify.sanitize(post.content) : ""  // Sanitize HTML content
+
+    const sanitizedContent = post
+    ? DOMPurify.sanitize(post.content, {
+        ALLOWED_TAGS: ["b", "i", "u", "strong", "em", "p", "span", "ul", "li", "ol", "a", "h1", "h2", "h3", "img"],
+        ALLOWED_ATTR: ["href", "src", "alt", "title", "style"]
+    })
+    : "";
+
+
+    if(loading){
+        return <BlogPostSkeleton />
     }
 
     return post ? (
@@ -46,7 +94,7 @@ const BlogInfo = () => {
                                 Edit
                             </Button>
                         </Link>
-                        <Button onClick={deletePostHandler}>
+                        <Button onClick={() => deletePostHandler(post.$id)}>
                             Delete
                         </Button>
                     </div>
@@ -63,13 +111,14 @@ const BlogInfo = () => {
                 </div>
 
                 <div className="browser-css">
-                    {parse(post.content)}
+                    {/* {parse(post.content)} */}
+                    {parse(sanitizedContent)}
                 </div>
                 
 
             </div>
         </div>
-    ) : null
+    ) : <NotFound />
 }
 
 export default BlogInfo;

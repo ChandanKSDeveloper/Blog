@@ -1,5 +1,4 @@
 import React from "react";
-import { Button } from "@material-tailwind/react";
 import appwriteService from '../../appwrite/config'
 import { Link } from "react-router-dom";
 
@@ -38,10 +37,6 @@ const BlogPostCard = ({$id, title, thumbnail, createdOn}) => {
                                             {title}
                                             </h1>
 
-                                            {/* Blog Description
-                                            <p className="leading-relaxed mb-3" >
-                                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusamus, aut!
-                                            </p> */}
                                     </div>
                                 </div>
                             </div>
@@ -49,13 +44,6 @@ const BlogPostCard = ({$id, title, thumbnail, createdOn}) => {
                         
                         </div>
 
-                        {/* See More Button
-                        <div className="flex justify-center my-5">
-                            <Button>
-                                See More
-                            </Button>
-
-                        </div> */}
 
                     </div>
                 </section>

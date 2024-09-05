@@ -39,8 +39,8 @@ const CreateBlog = ({post}) => {
     }, [post, setValue]);
 
 
-    console.log(post?.title);
-    console.log(post?.content);
+    // console.log(post?.title);
+    // console.log(post?.content);
     
 
 
@@ -80,13 +80,6 @@ const CreateBlog = ({post}) => {
             if(file){
                 appwriteService.deleteFile(post.thumbnail);
             }
-
-            // if (data.content.length > 255) {
-            //     // Show an error message or toast
-            //     toast.error("Content is too long! Please limit to 255 characters.");
-            //     console.log("hello text > 255 chars")
-            //     return;
-            // }
 
             //replace old post.$id with new post.$id -> deleting this document and creating a new document
             //instead I just disable to set new title , while give option to edit content and status and image upload
@@ -138,7 +131,7 @@ const CreateBlog = ({post}) => {
         return "";
     }, []);
 
-    React.useEffect(() => {
+    useEffect(() => {
         const subscription = watch((value, { name }) => {
             if (name === "title") {
                 setValue("slug", slugTransform(value.title), { shouldValidate: true });
@@ -230,7 +223,7 @@ const CreateBlog = ({post}) => {
 
                     {/* Category -> react,html -> further edit this and add multiple selecting*/}
                     <Select
-                        options={["html", "react"]}
+                        options={["Technology", "AI","Spritual", "Space"]}
                         label="Status"
                         className="mb-4"
                         placeholder = "label"

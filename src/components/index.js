@@ -11,7 +11,7 @@ import RTE from './RTE/RTE'
 import Select from './extra/Select';
 import Protected from './ProtectedRoute/Protected'
 import BlogPostSkeleton from './blogPostSkeleton/BlogPostSkeleton';
-
+import NotFound from './NotFound/NotFound';
 export {
     BlogPostCard,
     Comment,
@@ -26,5 +26,6 @@ export {
     Select,
     Protected,
     BlogPostSkeleton,
+    NotFound,
 
 }

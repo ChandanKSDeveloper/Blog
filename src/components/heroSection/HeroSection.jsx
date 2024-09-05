@@ -1,4 +1,3 @@
-import { Typography } from "@material-tailwind/react";
 import React from "react";
 const HeroSection = () => {
     return (
@@ -17,13 +16,13 @@ const HeroSection = () => {
 
                             {/* Text */}
                             <h1 className="text-3xl lg:text-5xl text-teal-400 font-bold">
-                                Tech Blog
+                                BLOG
                             </h1>
 
                             {/* Paragraph */}
                             <p
                                 className="sm:text-3xl text-xl font-extralight sm:mx-auto ">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam, ut.
+                                Blog site Project 
 
                             </p>
 

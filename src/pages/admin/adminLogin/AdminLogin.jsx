@@ -16,8 +16,8 @@ const AdminLogin = () => {
 
     const isLoggedIn = useSelector((state) => state.auth.status);
     const userData = useSelector((state) => state.auth.userData);
-    console.log(isLoggedIn);
-    console.log(userData);
+    // console.log(isLoggedIn);
+    // console.log(userData);
     
 
     const {register, handleSubmit, formState:{errors}} = useForm();
@@ -49,7 +49,7 @@ const AdminLogin = () => {
                     // navigate('/');
                 }
 
-                console.log(userData);
+                // console.log(userData);
                 
 
                 // -------
@@ -58,54 +58,9 @@ const AdminLogin = () => {
             }
         } catch (error) {
             toast.error("Login Failed. Please check your credentials and try again.");
-            console.log("error :- ", error);
+            // console.log("error :- ", error);
         }
         
-        // try {
-
-        //     // Check if user is already logged in
-        //     const userData = await authService.getCurrentUser();
-        //     if(userData){
-        //         dispatch(authLogin(userData))
-        //         console.log("3 phase");
-        //         navigate('/')
-        //         return;
-        //     }
-
-        //     // Proceed with login if no session exists
-        //     const session = await authService.login(data);
-        //     console.log("1 phase");
-            
-        //     if(session){
-        //         toast.success("Login Successfully")
-        //         // alert("success")
-        //         const newUserData = await authService.getCurrentUser()
-        //         console.log("2 phase");
-        //         if(newUserData){
-        //             dispatch(authLogin(newUserData))
-        //             console.log("3 phase");
-        //             navigate('/')
-        //         } else {
-        //             toast.error("Sorry but only Admin can use this.");
-        //         }
-        //     }
-        // } catch (error) {
-        //     if(error.message.includes("Creation of a session is prohibited")){
-        //         toast.loading("Session is already active. Fetching user data...")
-        //         const userData = await authService.getCurrentUser();
-        //         if(userData){
-        //             dispatch(authLogin(userData));
-        //             navigate('/');
-        //         } else {
-        //             toast.error("Failed to fetch user data.");
-        //         }
-        //     } else {
-        //         toast.error("Login Failed. Please check your credentials and try again.");
-
-        //     }
-        //     console.log("error :- ", error)
-            
-        // }
     }
 
 
