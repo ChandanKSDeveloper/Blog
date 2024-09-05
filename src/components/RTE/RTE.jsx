@@ -3,7 +3,7 @@ import React from "react";
 import { Controller } from "react-hook-form";
 
 const RTE = ({name, control, label, defaultValue = ""}) => {
-    const API_KEY = "sb4mw9d3cgqotgh4keqdcjbbikfsvp2lx4114nd4hgwa7qt7";
+    const API_KEY = "kqb0oip3y5b0jj6kmik536xtn85551pt868mvv86uqlxkjb0";
     return(
         <div className="w-full">
             {label && <label className="inline-block mb-1 pl-1">
