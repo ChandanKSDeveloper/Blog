@@ -27,7 +27,8 @@ const BlogInfo = () => {
                 if (fetchedPost) {
                     setPost(fetchedPost);
                 } else {
-                    navigate('/');
+                    // navigate('/');
+                    // console.log("no post found")
                 }
             } catch (error) {
                 navigate('/');
@@ -39,7 +40,9 @@ const BlogInfo = () => {
         if (slug) {
             fetchPostBySlug();
         } else {
-            navigate('/');
+            // navigate('/');
+            // console.log("wrong console");
+            
         }
     }, [slug, navigate]);
 

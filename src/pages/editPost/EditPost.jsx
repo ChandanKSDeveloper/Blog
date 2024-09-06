@@ -4,6 +4,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { CreateBlog } from '../../pages/index'
 import {fetchPosts } from '../../store/allblogsSlice'
 import { useSelector, useDispatch } from 'react-redux';
+import {NotFound} from '../../components/index'
+import toast from 'react-hot-toast';
 
 
 
@@ -22,12 +24,13 @@ const EditPost = () => {
     
     
        try {
-        console.log(posts);
+        // console.log(posts);
        } catch (error) {
-        console.error("no post:" , error)
+        // console.error("no post:" , error)
+
        }
-        console.log("Slug: ", slug);
-        console.log("Posts : ",posts);
+        // console.log("Slug: ", slug);
+        // console.log("Posts : ",posts);
     
     
         // Find the post by slug from the list of posts
@@ -35,7 +38,7 @@ const EditPost = () => {
 
 
     
-    console.log("matching post : ", post);
+    // console.log("matching post : ", post);
 
     useEffect(() => {
         if(status === "idle"){
@@ -47,8 +50,9 @@ const EditPost = () => {
 
     useEffect(() => {
         if (!post && status === "succeeded") {
-            console.log("post not found")
+            // console.log("post not found")
         //    navigate('/')
+        toast.error("post Not Found");
         } 
     },[post,status, navigate])
 
@@ -57,7 +61,7 @@ const EditPost = () => {
             <CreateBlog post={post}/>
         </div>
     ) : (
-        status === 'loading' ? <div>loading...</div> : null
+        status === 'loading' ? <div>loading...</div> : <NotFound />
     )
 }
 
